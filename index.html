@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For You, Always 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Great+Vibes&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #fdf8f2;
+  --warm: #faf0e4;
+  --blush: #f5dcd8;
+  --rose: #e8a090;
+  --deep-rose: #c96860;
+  --scarlet: #b84040;
+  --petal1: #fde8e0;
+  --petal2: #f9c8b8;
+  --petal3: #f4a898;
+  --tulip-red: #e84444;
+  --tulip-pink: #f08080;
+  --daisy-white: #fefefe;
+  --daisy-yellow: #f5c842;
+  --lavender: #e8d8f0;
+  --sage: #c8dcc0;
+  --green: #6aa060;
+  --deep-green: #3d6830;
+  --gold: #d4a040;
+  --soft-gold: #f0d880;
+  --text: #2a1818;
+  --text-mid: #5c3030;
+  --text-soft: #8c5050;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Custom cursor — desktop only */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+#cursor {
+  position: fixed;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: rgba(201,104,96,0.4);
+  border: 1.5px solid var(--deep-rose);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, background 0.2s;
+  mix-blend-mode: multiply;
+  display: none;
+}
+@media (pointer: fine) { #cursor { display: block; } }
+#cursor.big { transform: translate(-50%,-50%) scale(2.5); background: rgba(201,104,96,0.2); }
+
+/* ============ PAGES ============ */
+.page {
+  position: fixed; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 1s ease;
+  overflow: hidden;
+}
+.page.active { opacity: 1; pointer-events: all; }
+
+/* ============ NAV ============ */
+#nav {
+  position: fixed; bottom: 1.4rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 0.85rem; z-index: 500;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+}
+.ndot {
+  width: 7px; height: 7px; border-radius: 50%;
+  border: 1.5px solid var(--deep-rose);
+  background: transparent;
+  transition: all 0.35s; padding: 0;
+  cursor: pointer;
+  /* bigger tap target */
+  position: relative;
+}
+.ndot::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+.ndot.on { background: var(--deep-rose); transform: scale(1.4); }
+
+/* ============ CANVAS ============ */
+#bgCanvas {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1;
+}
+
+/* ============================================
+   PAGE 1 — THE INVITATION
+   ============================================ */
+#p1 {
+  background: radial-gradient(ellipse at 55% 45%, #fffaf5 0%, #fceee4 45%, #f5ddd0 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+}
+.p1-deco {
+  position: absolute; pointer-events: none;
+}
+.p1-top-left { top: -30px; left: -30px; font-size: clamp(6rem, 18vw, 14rem); opacity: 0.06; transform: rotate(-20deg); animation: breathe 6s ease-in-out infinite; }
+.p1-top-right { top: -20px; right: -40px; font-size: clamp(4rem, 12vw, 10rem); opacity: 0.06; transform: rotate(15deg); animation: breathe 7s ease-in-out infinite 1s; }
+.p1-bot-left { bottom: -20px; left: 5%; font-size: clamp(3.5rem, 10vw, 9rem); opacity: 0.07; transform: rotate(10deg); animation: breathe 8s ease-in-out infinite 2s; }
+.p1-bot-right { bottom: -10px; right: 5%; font-size: clamp(4rem, 14vw, 12rem); opacity: 0.06; transform: rotate(-10deg); animation: breathe 6s ease-in-out infinite 0.5s; }
+@keyframes breathe {
+  0%,100% { transform: rotate(var(--br,0deg)) scale(1); }
+  50% { transform: rotate(var(--br,0deg)) scale(1.08); }
+}
+
+.p1-inner {
+  position: relative; z-index: 5;
+  text-align: center;
+  animation: riseIn 1.6s cubic-bezier(0.22,1,0.36,1) both;
+  padding: 1.5rem;
+}
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.p1-eyebrow {
+  font-size: clamp(0.6rem, 2vw, 0.75rem); letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--deep-rose); margin-bottom: 1.2rem; opacity: 0.75;
+}
+.p1-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3.8rem, 14vw, 9rem);
+  color: var(--text); line-height: 1.05;
+  margin-bottom: 0.8rem;
+}
+.p1-sub {
+  font-family: 'IM Fell English', serif;
+  font-style: italic; font-size: clamp(0.95rem, 3vw, 1.15rem);
+  color: var(--text-mid); margin-bottom: 2.2rem;
+  letter-spacing: 0.04em; line-height: 1.6;
+}
+.p1-btn {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  padding: 0.85rem 2.5rem;
+  border: 1.5px solid var(--deep-rose);
+  color: var(--deep-rose);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem); letter-spacing: 0.3em; text-transform: uppercase;
+  background: transparent; position: relative; overflow: hidden;
+  transition: color 0.4s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+}
+.p1-btn::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--deep-rose);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease; z-index: -1;
+}
+.p1-btn:hover { color: white; }
+.p1-btn:hover::after { transform: scaleX(1); }
+@media (hover: none) {
+  .p1-btn:active { background: var(--deep-rose); color: white; }
+}
+
+/* Scattered floating flowers on P1 */
+.p1-float {
+  position: absolute; font-size: 1.6rem; opacity: 0;
+  animation: p1float linear infinite;
+  pointer-events: none;
+}
+@keyframes p1float {
+  0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+  15% { opacity: 0.55; }
+  85% { opacity: 0.4; }
+  100% { transform: translateY(-110vh) rotate(540deg) scale(1); opacity: 0; }
+}
+
+/* ============================================
+   PAGE 2 — THE TULIP FIELD
+   ============================================ */
+#p2 {
+  background: linear-gradient(168deg, #fff5f0 0%, #fde8dc 50%, #f5d8cc 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.p2-scene {
+  position: relative; z-index: 5;
+  width: 100%; max-width: 860px;
+  padding: clamp(1rem, 4vw, 2rem);
+  display: flex; align-items: center;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Mobile: stack tulip above text */
+@media (max-width: 600px) {
+  .p2-scene {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem 4.5rem;
+    justify-content: flex-start;
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+  }
+  .p2-left { flex: 0 0 auto; }
+  .p2-right { flex: 1 1 100%; }
+}
+
+.p2-left {
+  flex: 0 0 auto;
+  position: relative;
+}
+.p2-right {
+  flex: 1;
+}
+
+/* SVG Tulip cluster */
+#tulip-svg {
+  width: clamp(140px, 35vw, 260px);
+  height: auto;
+  overflow: visible;
+}
+
+.t-stem { stroke: var(--green); stroke-width: 5; fill: none; stroke-linecap: round; }
+.t-leaf { fill: var(--green); }
+.t-petal { transition: all 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+.t-bloom { cursor: pointer; }
+.t-bloom:hover .t-petal { filter: brightness(1.15) saturate(1.2); }
+
+/* Story text reveal */
+.story-line {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 2.5vw, 1.4rem);
+  color: var(--text);
+  line-height: 1.85;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.story-line.vis { opacity: 1; transform: translateX(0); }
+.story-accent {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.6rem, 5vw, 2.2rem); color: var(--deep-rose);
+  display: block; margin-bottom: 0.4rem;
+}
+
+.p2-interact-hint {
+  font-size: clamp(0.7rem, 2vw, 0.8rem); letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--text-soft); margin-top: 1.2rem; opacity: 0.7;
+}
+
+/* ============================================
+   PAGE 3 — THE LILY
+   ============================================ */
+#p3 {
+  background: radial-gradient(ellipse at 50% 55%, #fffbf5 0%, #faeee0 45%, #f2ddd8 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.p3-title-wrap { text-align: center; margin-bottom: 1rem; z-index: 5; position: relative; }
+.p3-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.8rem, 6vw, 3.8rem);
+  color: var(--text);
+}
+.p3-sub {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(0.8rem, 2.5vw, 0.95rem); color: var(--deep-rose); opacity: 0.75;
+  letter-spacing: 0.08em; margin-top: 0.3rem;
+}
+
+#lily-wrap {
+  position: relative;
+  width: clamp(200px, 55vw, 320px);
+  height: clamp(260px, 70vw, 420px);
+  z-index: 5;
+  animation: lilyFloat 4s ease-in-out infinite;
+}
+@keyframes lilyFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+#lily-svg { width: 100%; height: 100%; overflow: visible; }
+
+.pg { transform-origin: 130px 290px; }
+.pg.closed { transform: rotate(var(--r)) scaleY(0.04); opacity: 0; transition: transform 2s cubic-bezier(0.34,1.56,0.64,1) var(--delay,0s), opacity 0.5s var(--delay,0s); }
+.pg.open { transform: rotate(var(--r)) scaleY(1); opacity: 1; transition: transform 2s cubic-bezier(0.34,1.56,0.64,1) var(--delay,0s), opacity 0.5s var(--delay,0s); }
+.pg.fallen { animation: lilyFall 2.2s ease-in forwards; }
+@keyframes lilyFall {
+  0% { transform: rotate(var(--r)) scaleY(1); opacity: 1; }
+  100% { transform: rotate(calc(var(--r) + var(--fd,120deg))) translateY(300px) scaleY(0.6); opacity: 0; }
+}
+.ps { fill: var(--petal1); stroke: #f0b0a0; stroke-width: 0.5; }
+.pi { fill: url(#lpg); opacity: 0.55; }
+.pv { stroke: var(--petal3); stroke-width: 0.6; fill: none; opacity: 0.45; }
+.pg:hover .ps { fill: var(--petal2); }
+.pg { cursor: pointer; }
+
+/* Petal modal */
+#pModal {
+  position: fixed; inset: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s;
+  padding: 1rem;
+}
+#pModal.on { opacity: 1; pointer-events: all; }
+.pm-bg {
+  position: absolute; inset: 0;
+  background: rgba(42,24,24,0.4);
+  backdrop-filter: blur(8px);
+}
+.pm-card {
+  position: relative; z-index: 1;
+  background: var(--cream);
+  max-width: 380px; width: 100%;
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 2.8rem);
+  text-align: center;
+  border-top: 3px solid var(--rose);
+  box-shadow: 0 40px 100px rgba(180,60,60,0.22);
+  transform: translateY(24px) scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+#pModal.on .pm-card { transform: translateY(0) scale(1); }
+.pm-num {
+  font-family: 'Great Vibes', cursive; font-size: 1.2rem;
+  color: var(--deep-rose); margin-bottom: 0.4rem; opacity: 0.65;
+}
+.pm-icon { font-size: clamp(2rem, 6vw, 2.8rem); margin-bottom: 0.8rem; display: block; }
+.pm-msg {
+  font-family: 'IM Fell English', serif; font-style: italic;
+  font-size: clamp(1rem, 3.5vw, 1.25rem); color: var(--text); line-height: 1.75;
+  margin-bottom: 1.8rem;
+}
+.pm-close {
+  padding: 0.65rem 2.2rem;
+  border: 1px solid var(--deep-rose); background: transparent;
+  color: var(--deep-rose); font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem); letter-spacing: 0.2em; text-transform: uppercase;
+  transition: all 0.3s;
+  min-height: 44px;
+  cursor: pointer;
+}
+.pm-close:hover { background: var(--deep-rose); color: white; }
+
+/* ============================================
+   PAGE 4 — THE DAISY FIELD
+   ============================================ */
+#p4 {
+  background: linear-gradient(170deg, #f0f8e8 0%, #e8f0d8 30%, #f5eee0 70%, #fde8dc 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.3rem;
+}
+.p4-heading { text-align: center; z-index: 5; position: relative; margin-bottom: 0.2rem; padding: 0 1rem; }
+.p4-h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 7vw, 4.2rem); color: var(--text);
+}
+.p4-h2 {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(0.8rem, 2.5vw, 1rem); color: var(--deep-rose); opacity: 0.75; letter-spacing: 0.1em;
+}
+
+#daisy-field {
+  position: relative; z-index: 5;
+  width: min(700px, 95vw);
+  height: clamp(180px, 40vw, 340px);
+  margin: 0.5rem 0;
+  flex-shrink: 0;
+}
+
+.daisy-wrap {
+  position: absolute;
+  transform-origin: center bottom;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+.daisy-wrap:hover { transform: scale(1.25) rotate(5deg); }
+.daisy-wrap.plucked { animation: pluck 0.6s ease forwards; }
+@keyframes pluck {
+  0% { transform: scale(1.3); }
+  40% { transform: scale(0.8) translateY(-20px); opacity: 0.6; }
+  100% { transform: scale(0) translateY(-60px); opacity: 0; }
+}
+
+.p4-loves {
+  display: flex; flex-wrap: wrap; gap: 0.45rem;
+  justify-content: center;
+  max-width: min(560px, 95vw);
+  z-index: 5; position: relative;
+  padding: 0 0.5rem;
+  max-height: clamp(70px, 18vw, 100px);
+  overflow: hidden;
+}
+.love-token {
+  padding: 0.4rem 0.95rem;
+  border: 1px solid var(--rose);
+  border-radius: 20px;
+  font-size: clamp(0.75rem, 2.5vw, 0.88rem);
+  color: var(--text-mid); background: rgba(255,255,255,0.6);
+  font-family: 'Cormorant Garamond', serif;
+  opacity: 0; transform: translateY(10px) scale(0.9);
+  transition: all 0.35s ease; backdrop-filter: blur(4px);
+  white-space: nowrap;
+}
+.love-token.show { opacity: 1; transform: translateY(0) scale(1); }
+
+.p4-counter {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--deep-rose); text-align: center;
+  z-index: 5; position: relative;
+  min-height: 2.2rem;
+}
+
+/* ============================================
+   PAGE 5 — THE FINAL BLOOM
+   ============================================ */
+#p5 {
+  background: radial-gradient(ellipse at 40% 35%, #fff8f0 0%, #fce8e8 40%, #f0e0f0 80%, #e8d8f8 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; overflow: hidden;
+}
+.p5-bg-flowers {
+  position: absolute; inset: 0; pointer-events: none;
+  overflow: hidden;
+}
+.p5-bgf {
+  position: absolute; font-size: clamp(4rem, 10vw, 7rem); opacity: 0;
+  animation: p5bgrise linear infinite;
+}
+@keyframes p5bgrise {
+  0% { transform: translateY(110vh) rotate(0deg) scale(0.5); opacity: 0; }
+  20% { opacity: 0.06; }
+  80% { opacity: 0.06; }
+  100% { transform: translateY(-20vh) rotate(180deg) scale(1); opacity: 0; }
+}
+
+.p5-inner {
+  position: relative; z-index: 5;
+  text-align: center;
+  max-width: min(560px, 90vw);
+  padding: clamp(1rem, 4vw, 2rem);
+  overflow-y: auto;
+  max-height: 100vh;
+}
+.p5-tag {
+  font-size: clamp(0.65rem, 2vw, 0.75rem); letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--deep-rose); opacity: 0.65; margin-bottom: 0.9rem;
+}
+.p5-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.8rem, 10vw, 7rem);
+  color: var(--text); line-height: 1.1; margin-bottom: 1rem;
+}
+.p5-letter {
+  font-family: 'IM Fell English', serif; font-style: italic;
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  color: var(--text); line-height: 1.9;
+  margin-bottom: 1.5rem; opacity: 0.88;
+}
+.p5-letter span {
+  display: inline-block;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.p5-letter span.vis { opacity: 1; transform: translateY(0); }
+.p5-sig {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 6vw, 2.8rem); color: var(--deep-rose);
+  margin-bottom: 1.4rem; display: block;
+}
+.p5-restart {
+  padding: 0.8rem 2.2rem;
+  border: 1.5px solid var(--deep-rose); background: transparent;
+  color: var(--deep-rose); font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem); letter-spacing: 0.25em; text-transform: uppercase;
+  transition: all 0.3s;
+  min-height: 44px;
+  cursor: pointer;
+}
+.p5-restart:hover { background: var(--deep-rose); color: white; }
+
+#flowerRing {
+  position: absolute; z-index: 3;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: min(90vw, 90vh); height: min(90vw, 90vh);
+  pointer-events: none;
+}
+.ring-flower {
+  position: absolute; font-size: clamp(1.2rem, 3vw, 1.8rem);
+  transform-origin: center;
+  opacity: 0; animation: ringBlooms ease-in-out both;
+}
+@keyframes ringBlooms {
+  0% { opacity: 0; transform: rotate(var(--ra)) translateX(var(--rd)) scale(0.1); }
+  60% { opacity: 1; transform: rotate(var(--ra)) translateX(var(--rd)) scale(1.2); }
+  100% { opacity: 0.85; transform: rotate(var(--ra)) translateX(var(--rd)) scale(1); }
+}
+
+/* ============ SHARED BUTTONS ============ */
+.next-btn {
+  position: absolute;
+  bottom: clamp(2.5rem, 6vw, 3.5rem);
+  right: clamp(1rem, 4vw, 3rem);
+  padding: 0.6rem 1.5rem;
+  border: 1px solid var(--deep-rose); background: transparent;
+  color: var(--deep-rose); font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem); letter-spacing: 0.18em; text-transform: uppercase;
+  z-index: 10; transition: all 0.3s;
+  min-height: 40px; cursor: pointer;
+}
+.next-btn:hover { background: var(--deep-rose); color: white; }
+.back-btn {
+  position: absolute;
+  bottom: clamp(2.5rem, 6vw, 3.5rem);
+  left: clamp(1rem, 4vw, 3rem);
+  padding: 0.6rem 1.5rem;
+  border: 1px solid rgba(201,104,96,0.4); background: transparent;
+  color: var(--text-soft); font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem); letter-spacing: 0.18em; text-transform: uppercase;
+  z-index: 10; transition: all 0.3s;
+  min-height: 40px; cursor: pointer;
+}
+.back-btn:hover { border-color: var(--deep-rose); color: var(--deep-rose); }
+
+.btn-hidden { opacity: 0 !important; pointer-events: none !important; }
+
+/* ============================================
+   MOBILE-SPECIFIC OVERRIDES
+   ============================================ */
+@media (max-width: 480px) {
+  /* P3: smaller lily, more compact */
+  #lily-wrap {
+    width: clamp(170px, 65vw, 240px);
+    height: clamp(220px, 85vw, 310px);
+  }
+  .p3-title-wrap { margin-bottom: 0.5rem; }
+
+  /* P4: smaller daisy field */
+  #daisy-field { height: 160px; }
+  .p4-loves { max-height: 80px; }
+
+  /* P5: tighter spacing */
+  .p5-inner { padding: 4rem 1rem 1rem; }
+
+  /* Nav: slightly bigger dots for touch */
+  .ndot { width: 8px; height: 8px; }
+}
+
+/* Landscape phone */
+@media (max-height: 500px) and (orientation: landscape) {
+  .p1-title { font-size: clamp(2.5rem, 8vw, 5rem); }
+  .p1-sub { font-size: 0.9rem; margin-bottom: 1.2rem; }
+  .p1-inner { padding: 0.8rem; }
+
+  .p2-scene {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+    padding: 0.8rem 1rem 4rem;
+    align-items: flex-start;
+  }
+  #tulip-svg { width: 120px; }
+
+  #lily-wrap { width: 140px; height: 180px; }
+  .p3-title-wrap { margin-bottom: 0.3rem; }
+
+  #daisy-field { height: 140px; }
+
+  .p5-title { font-size: clamp(2rem, 6vw, 3.5rem); }
+  .p5-letter { font-size: 0.85rem; line-height: 1.7; margin-bottom: 0.8rem; }
+  .p5-sig { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .p5-inner { padding: 0.8rem 1rem; }
+  #flowerRing { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+
+<!-- Global canvas for particle effects -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- Nav dots -->
+<div id="nav">
+  <button class="ndot on" onclick="go(1)"></button>
+  <button class="ndot" onclick="go(2)"></button>
+  <button class="ndot" onclick="go(3)"></button>
+  <button class="ndot" onclick="go(4)"></button>
+  <button class="ndot" onclick="go(5)"></button>
+</div>
+
+<!-- Petal modal (shared) -->
+<div id="pModal">
+  <div class="pm-bg" onclick="closeModal()"></div>
+  <div class="pm-card">
+    <div class="pm-num" id="pmNum">Petal I</div>
+    <span class="pm-icon">🌸</span>
+    <p class="pm-msg" id="pmMsg"></p>
+    <button class="pm-close" onclick="closeModal()">Release this petal</button>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE 1 — THE INVITATION
+     ================================================================ -->
+<section class="page active" id="p1">
+  <div class="p1-deco p1-top-left" style="--br:-20deg">🌸</div>
+  <div class="p1-deco p1-top-right" style="--br:15deg">🌷</div>
+  <div class="p1-deco p1-bot-left" style="--br:10deg">🌺</div>
+  <div class="p1-deco p1-bot-right" style="--br:-10deg">🌼</div>
+  <div id="p1-floaters"></div>
+
+  <div class="p1-inner">
+    <p class="p1-eyebrow">a love letter in flowers</p>
+    <h1 class="p1-title">For You,<br>Always</h1>
+    <p class="p1-sub">
+      Every petal is a word I've been<br>searching for. Come walk with me.
+    </p>
+    <button class="p1-btn" onclick="go(2)">
+      <span>Open the Garden</span>
+      <span>✦</span>
+    </button>
+  </div>
+</section>
+
+<!-- ================================================================
+     PAGE 2 — THE TULIP STORY
+     ================================================================ -->
+<section class="page" id="p2">
+  <div class="p2-scene" id="p2scene">
+    <!-- Tulip SVG left -->
+    <div class="p2-left">
+      <svg id="tulip-svg" viewBox="0 0 260 340" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="tg1" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#f88080"/>
+            <stop offset="100%" stop-color="#c43030"/>
+          </radialGradient>
+          <radialGradient id="tg2" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#ff9090"/>
+            <stop offset="100%" stop-color="#d44040"/>
+          </radialGradient>
+          <radialGradient id="tg3" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#ffb0b0"/>
+            <stop offset="100%" stop-color="#e06060"/>
+          </radialGradient>
+          <filter id="tfs">
+            <feDropShadow dx="1" dy="4" stdDeviation="5" flood-color="#c04040" flood-opacity="0.25"/>
+          </filter>
+        </defs>
+
+        <!-- Stems -->
+        <path class="t-stem" d="M90,315 C88,280 85,250 80,210 C76,180 70,160 68,130" stroke-dasharray="200" stroke-dashoffset="200" id="ts1"/>
+        <path class="t-stem" d="M130,320 C130,285 132,255 130,220 C128,185 126,165 128,128" stroke-dasharray="210" stroke-dashoffset="210" id="ts2"/>
+        <path class="t-stem" d="M175,318 C178,280 182,252 184,215 C186,180 184,160 188,122" stroke-dasharray="210" stroke-dashoffset="210" id="ts3"/>
+
+        <!-- Leaves -->
+        <path class="t-leaf" d="M88,240 C70,225 45,220 38,235 C32,248 48,258 68,255 C82,253 90,248 88,240Z" opacity="0" id="tl1"/>
+        <path class="t-leaf" d="M130,260 C148,242 170,240 175,255 C179,266 162,274 145,270 C136,267 129,265 130,260Z" opacity="0" id="tl2"/>
+        <path class="t-leaf" d="M180,255 C165,238 162,215 172,210 C181,205 190,218 188,238 C187,248 183,258 180,255Z" opacity="0" id="tl3"/>
+
+        <!-- Tulip 1 -->
+        <g class="t-bloom" id="tb1" opacity="0">
+          <path class="t-petal" d="M68,130 C55,105 52,75 65,52 C72,40 80,35 90,38 C96,40 100,48 98,62 C96,80 88,100 80,120Z" fill="url(#tg1)" filter="url(#tfs)"/>
+          <path class="t-petal" d="M68,130 C75,108 82,78 88,58 C92,44 96,38 100,40 C108,44 110,58 105,76 C100,95 90,115 80,128Z" fill="url(#tg2)" filter="url(#tfs)"/>
+          <path class="t-petal" d="M68,130 C58,112 54,88 60,68 C64,52 70,44 76,44 C82,44 84,54 82,70 C80,88 74,110 68,130Z" fill="url(#tg3)" filter="url(#tfs)"/>
+          <path d="M78,128 C76,100 72,72 74,52" stroke="#a02020" stroke-width="1" fill="none" opacity="0.4"/>
+        </g>
+
+        <!-- Tulip 2 -->
+        <g class="t-bloom" id="tb2" opacity="0">
+          <path class="t-petal" d="M128,128 C115,103 112,73 125,50 C132,38 140,33 150,36 C156,38 160,46 158,60 C156,78 148,98 140,118Z" fill="url(#tg3)" filter="url(#tfs)"/>
+          <path class="t-petal" d="M128,128 C135,106 142,76 148,56 C152,42 156,36 160,38 C168,42 170,56 165,74 C160,93 150,113 140,126Z" fill="url(#tg2)" filter="url(#tfs)"/>
+          <path class="t-petal" d="M128,128 C118,110 114,86 120,66 C124,50 130,42 136,42 C142,42 144,52 142,68 C140,86 134,108 128,128Z" fill="url(#tg1)" filter="url(#tfs)"/>
+        </g>
+
+        <!-- Tulip 3 -->
+        <g class="t-bloom" id="tb3" opacity="0">
+          <path class="t-petal" d="M188,122 C178,97 178,67 192,46 C198,34 206,30 214,34 C220,37 222,46 218,60 C214,78 205,98 196,118Z" fill="url(#tg3)" filter="url(#tfs)"/>
+          <path class="t-petal" d="M188,122 C196,100 204,70 210,50 C214,36 218,30 222,32 C230,36 230,50 224,68 C218,88 208,108 198,120Z" fill="url(#tg2)" filter="url(#tfs)"/>
+          <path class="t-petal" d="M188,122 C180,104 178,80 184,60 C188,44 195,37 200,38 C206,39 208,50 206,66 C204,84 196,106 188,122Z" fill="url(#tg1)" filter="url(#tfs)"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Story text right -->
+    <div class="p2-right">
+      <p class="story-line" id="sl1">
+        <span class="story-accent">Tulips</span>
+        They say a red tulip is a declaration — <em>"I love you perfectly."</em>
+      </p>
+      <p class="story-line" id="sl2">
+        And that is exactly what you are to me.<br>
+        Not a maybe. Not a someday.<br>
+        A perfect, certain, blooming <em>yes.</em>
+      </p>
+      <p class="story-line" id="sl3">
+        I found myself thinking of you<br>
+        in the middle of ordinary afternoons —<br>
+        the way a field thinks of rain.
+      </p>
+      <p class="p2-interact-hint" id="p2hint" style="opacity:0">✦ touch the tulips ✦</p>
+    </div>
+  </div>
+
+  <button class="back-btn" onclick="go(1)">← Back</button>
+  <button class="next-btn" onclick="go(3)">Next →</button>
+</section>
+
+<!-- ================================================================
+     PAGE 3 — THE LILY
+     ================================================================ -->
+<section class="page" id="p3">
+  <div class="p3-title-wrap">
+    <h2 class="p3-title">She Blooms For You</h2>
+    <p class="p3-sub">— touch each petal, hear each secret —</p>
+  </div>
+
+  <div id="lily-wrap">
+    <svg id="lily-svg" viewBox="0 0 260 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="lpg" cx="50%" cy="75%" r="65%">
+          <stop offset="0%" stop-color="#f9b8b8" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#fde8e8" stop-opacity="0.1"/>
+        </radialGradient>
+        <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffe080"/>
+          <stop offset="70%" stop-color="#d4a030"/>
+          <stop offset="100%" stop-color="#b07820"/>
+        </radialGradient>
+        <filter id="lfs">
+          <feDropShadow dx="1" dy="3" stdDeviation="4" flood-color="#e07070" flood-opacity="0.22"/>
+        </filter>
+      </defs>
+
+      <path d="M130,385 C126,350 122,320 120,290" stroke="var(--green)" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100" id="ls"/>
+      <path d="M125,355 C108,338 78,335 65,348 C57,357 64,370 84,373 C106,377 126,368 125,355Z" fill="var(--green)" transform-origin="125px 355px" id="ll1" style="transform:scale(0);transition:transform 0.8s ease 0.6s"/>
+      <path d="M128,340 C145,322 168,322 175,338 C180,350 168,360 150,360 C138,358 126,350 128,340Z" fill="var(--deep-green)" transform-origin="128px 340px" id="ll2" style="transform:scale(0);transition:transform 0.8s ease 0.9s"/>
+
+      <g class="pg closed" id="lp1" style="--r:0deg;--delay:0.2s;--fd:100deg" onclick="openPetal(1)">
+        <path class="ps" d="M130,290 C118,255 114,220 116,190 C118,172 124,163 130,161 C136,163 142,172 144,190 C146,220 142,255 130,290Z"/>
+        <path class="pi" d="M130,282 C121,250 118,218 120,192 C122,176 126,168 130,166 C134,168 138,176 140,192 C142,218 139,250 130,282Z"/>
+        <path class="pv" d="M130,272 C128,240 126,208 128,185"/>
+      </g>
+      <g class="pg closed" id="lp2" style="--r:60deg;--delay:0.45s;--fd:-80deg" onclick="openPetal(2)">
+        <path class="ps" d="M130,290 C118,255 114,220 116,190 C118,172 124,163 130,161 C136,163 142,172 144,190 C146,220 142,255 130,290Z"/>
+        <path class="pi" d="M130,282 C121,250 118,218 120,192 C122,176 126,168 130,166 C134,168 138,176 140,192 C142,218 139,250 130,282Z"/>
+        <path class="pv" d="M130,272 C128,240 126,208 128,185"/>
+      </g>
+      <g class="pg closed" id="lp3" style="--r:120deg;--delay:0.7s;--fd:130deg" onclick="openPetal(3)">
+        <path class="ps" d="M130,290 C118,255 114,220 116,190 C118,172 124,163 130,161 C136,163 142,172 144,190 C146,220 142,255 130,290Z"/>
+        <path class="pi" d="M130,282 C121,250 118,218 120,192 C122,176 126,168 130,166 C134,168 138,176 140,192 C142,218 139,250 130,282Z"/>
+        <path class="pv" d="M130,272 C128,240 126,208 128,185"/>
+      </g>
+      <g class="pg closed" id="lp4" style="--r:180deg;--delay:0.95s;--fd:-110deg" onclick="openPetal(4)">
+        <path class="ps" d="M130,290 C118,255 114,220 116,190 C118,172 124,163 130,161 C136,163 142,172 144,190 C146,220 142,255 130,290Z"/>
+        <path class="pi" d="M130,282 C121,250 118,218 120,192 C122,176 126,168 130,166 C134,168 138,176 140,192 C142,218 139,250 130,282Z"/>
+        <path class="pv" d="M130,272 C128,240 126,208 128,185"/>
+      </g>
+      <g class="pg closed" id="lp5" style="--r:240deg;--delay:1.2s;--fd:80deg" onclick="openPetal(5)">
+        <path class="ps" d="M130,290 C118,255 114,220 116,190 C118,172 124,163 130,161 C136,163 142,172 144,190 C146,220 142,255 130,290Z"/>
+        <path class="pi" d="M130,282 C121,250 118,218 120,192 C122,176 126,168 130,166 C134,168 138,176 140,192 C142,218 139,250 130,282Z"/>
+        <path class="pv" d="M130,272 C128,240 126,208 128,185"/>
+      </g>
+      <g class="pg closed" id="lp6" style="--r:300deg;--delay:1.45s;--fd:-140deg" onclick="openPetal(6)">
+        <path class="ps" d="M130,290 C118,255 114,220 116,190 C118,172 124,163 130,161 C136,163 142,172 144,190 C146,220 142,255 130,290Z"/>
+        <path class="pi" d="M130,282 C121,250 118,218 120,192 C122,176 126,168 130,166 C134,168 138,176 140,192 C142,218 139,250 130,282Z"/>
+        <path class="pv" d="M130,272 C128,240 126,208 128,185"/>
+      </g>
+
+      <g id="lcenter" style="opacity:0;transition:opacity 0.8s ease 1.8s">
+        <circle cx="130" cy="268" r="20" fill="url(#cg)" filter="url(#lfs)"/>
+        <circle cx="130" cy="268" r="12" fill="#f5c840" opacity="0.6"/>
+        <circle cx="130" cy="268" r="6" fill="#c89020"/>
+        <line x1="130" y1="250" x2="124" y2="226" stroke="#c89020" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="123" cy="223" r="2.5" fill="#e8c050"/>
+        <line x1="130" y1="250" x2="136" y2="226" stroke="#c89020" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="137" cy="223" r="2.5" fill="#e8c050"/>
+        <line x1="130" y1="250" x2="116" y2="234" stroke="#c89020" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="114" cy="232" r="2.5" fill="#e8c050"/>
+        <line x1="130" y1="250" x2="144" y2="234" stroke="#c89020" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="146" cy="232" r="2.5" fill="#e8c050"/>
+        <line x1="130" y1="250" x2="120" y2="220" stroke="#c89020" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="119" cy="217" r="2" fill="#f0c840"/>
+        <line x1="130" y1="250" x2="140" y2="220" stroke="#c89020" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="141" cy="217" r="2" fill="#f0c840"/>
+      </g>
+    </svg>
+  </div>
+
+  <button class="back-btn" onclick="go(2)">← Back</button>
+  <button class="next-btn btn-hidden" id="p3next" onclick="go(4)">Next →</button>
+</section>
+
+<!-- ================================================================
+     PAGE 4 — THE DAISY FIELD
+     ================================================================ -->
+<section class="page" id="p4">
+  <div class="p4-heading">
+    <h2 class="p4-h1">She Loves Me…</h2>
+    <p class="p4-h2">pluck a daisy to reveal a reason I love you</p>
+  </div>
+
+  <div id="daisy-field"></div>
+
+  <div class="p4-loves" id="lovesContainer"></div>
+  <div class="p4-counter" id="p4counter"></div>
+
+  <button class="back-btn" onclick="go(3)">← Back</button>
+  <button class="next-btn btn-hidden" id="p4next" onclick="go(5)">Next →</button>
+</section>
+
+<!-- ================================================================
+     PAGE 5 — THE FINAL BLOOM
+     ================================================================ -->
+<section class="page" id="p5">
+  <div class="p5-bg-flowers" id="p5bgf"></div>
+  <div id="flowerRing"></div>
+
+  <div class="p5-inner">
+    <p class="p5-tag">From my heart to yours</p>
+    <h2 class="p5-title">You Are<br>My Garden</h2>
+    <p class="p5-letter" id="p5letter">
+      <span>There are flowers that bloom once and are gone,</span>
+      <span> and flowers that return every spring without being asked.</span>
+      <span> You are the second kind.</span>
+      <span> You bloom in me every single day</span>
+      <span> without needing a reason,</span>
+      <span> without needing a season.</span>
+      <span> I am better for knowing you.</span>
+      <span> I am softer for loving you.</span>
+      <span> And every flower I will ever see</span>
+      <span> will remind me of something you once made me feel.</span>
+    </p>
+    <span class="p5-sig">Yours, always 🌸</span>
+    <button class="p5-restart" onclick="go(1)">↺ Begin again</button>
+  </div>
+</section>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let currentPage = 1;
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let raf = null;
+
+let p2Animated = false;
+let p3Bloomed = false;
+let petalRead = [false,false,false,false,false,false];
+let petalDone = [false,false,false,false,false,false];
+let currentPetal = null;
+
+const petalMsgs = [
+  { n: "Petal I",   msg: "In a world full of noise, your laughter is the only music I could listen to forever." },
+  { n: "Petal II",  msg: "You make ordinary Tuesday afternoons feel like something I'll remember on my deathbed." },
+  { n: "Petal III", msg: "Every time you smile, I understand exactly why poets spent centuries chasing this feeling." },
+  { n: "Petal IV",  msg: "You are the kind of rare, impossible thing that makes a person glad they were born." },
+  { n: "Petal V",   msg: "I carry pieces of you in every good thought I've ever had about the future." },
+  { n: "Petal VI",  msg: "If I could give you one gift, it would be the chance to see yourself the way I see you — endlessly, breathtakingly wonderful." },
+];
+
+let daisyPlucked = 0;
+const daisyReasons = [
+  "the way you laugh",
+  "your stubborn kindness",
+  "how you light up a room",
+  "the way you care deeply",
+  "your beautiful mind",
+  "how you make me braver",
+  "the warmth in your eyes",
+  "your quiet strength",
+  "how you see the best in people",
+  "the way you make ordinary feel magic",
+];
+let daisyBuilt = false;
+
+// ============================================================
+// CURSOR (desktop only)
+// ============================================================
+const cur = document.getElementById('cursor');
+if (window.matchMedia('(pointer: fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top = e.clientY + 'px';
+  });
+  document.addEventListener('mouseenter', () => cur.style.opacity = '1');
+  document.addEventListener('mouseleave', () => cur.style.opacity = '0');
+  document.addEventListener('mousedown', () => cur.classList.add('big'));
+  document.addEventListener('mouseup', () => cur.classList.remove('big'));
+}
+
+// ============================================================
+// CANVAS RESIZE
+// ============================================================
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// ============================================================
+// PAGE NAVIGATION
+// ============================================================
+function go(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ndot').forEach((d,i) => d.classList.toggle('on', i === n-1));
+  document.getElementById('p' + n).classList.add('active');
+  currentPage = n;
+
+  if (n === 1) resetAll();
+  if (n === 2) initP2();
+  if (n === 3) initP3();
+  if (n === 4) initP4();
+  if (n === 5) initP5();
+}
+
+// ============================================================
+// PAGE 1 — FLOATING FLOWERS
+// ============================================================
+(function buildP1Floaters() {
+  const cont = document.getElementById('p1-floaters');
+  const emojis = ['🌸','🌷','🌺','🌼','✿','🌸','🌷'];
+  for (let i = 0; i < 16; i++) {
+    const el = document.createElement('div');
+    el.className = 'p1-float';
+    el.textContent = emojis[i % emojis.length];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.fontSize = (1.2 + Math.random() * 1.6) + 'rem';
+    el.style.animationDuration = (10 + Math.random() * 12) + 's';
+    el.style.animationDelay = (Math.random() * 12) + 's';
+    cont.appendChild(el);
+  }
+})();
+
+// ============================================================
+// PAGE 2 — TULIP GROW ANIMATION
+// ============================================================
+function initP2() {
+  if (p2Animated) return;
+  p2Animated = true;
+
+  setTimeout(() => {
+    ['ts1','ts2','ts3'].forEach((id,i) => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        el.style.transition = 'stroke-dashoffset 1.2s ease';
+        el.style.strokeDashoffset = '0';
+      }, i * 200);
+    });
+  }, 200);
+
+  setTimeout(() => {
+    ['tl1','tl2','tl3'].forEach((id,i) => {
+      setTimeout(() => {
+        document.getElementById(id).style.transition = 'opacity 0.8s ease';
+        document.getElementById(id).style.opacity = '1';
+      }, i * 150);
+    });
+  }, 900);
+
+  setTimeout(() => {
+    ['tb1','tb2','tb3'].forEach((id,i) => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.34,1.56,0.64,1)';
+        el.style.opacity = '1';
+        el.style.transform = 'scaleY(1)';
+      }, i * 250);
+    });
+  }, 1400);
+
+  setTimeout(() => {
+    ['sl1','sl2','sl3'].forEach((id,i) => {
+      setTimeout(() => document.getElementById(id).classList.add('vis'), i * 500);
+    });
+  }, 400);
+
+  setTimeout(() => {
+    const hint = document.getElementById('p2hint');
+    hint.style.transition = 'opacity 1s ease';
+    hint.style.opacity = '0.7';
+  }, 2800);
+}
+
+// ============================================================
+// PAGE 3 — LILY BLOOM
+// ============================================================
+function initP3() {
+  if (p3Bloomed) return;
+  p3Bloomed = true;
+
+  setTimeout(() => {
+    const s = document.getElementById('ls');
+    s.style.transition = 'stroke-dashoffset 1s ease';
+    s.style.strokeDashoffset = '0';
+  }, 300);
+
+  setTimeout(() => {
+    document.getElementById('ll1').style.transform = 'scale(1)';
+    document.getElementById('ll2').style.transform = 'scale(1)';
+  }, 900);
+
+  for (let i = 1; i <= 6; i++) {
+    setTimeout(() => {
+      const p = document.getElementById('lp' + i);
+      p.classList.remove('closed');
+      p.classList.add('open');
+    }, 1100 + (i-1) * 250);
+  }
+
+  setTimeout(() => {
+    document.getElementById('lcenter').style.opacity = '1';
+  }, 3000);
+}
+
+function openPetal(n) {
+  if (petalDone[n-1]) return;
+  currentPetal = n;
+  const d = petalMsgs[n-1];
+  document.getElementById('pmNum').textContent = d.n;
+  document.getElementById('pmMsg').textContent = d.msg;
+  document.getElementById('pModal').classList.add('on');
+  petalRead[n-1] = true;
+}
+
+function closeModal() {
+  document.getElementById('pModal').classList.remove('on');
+  if (currentPetal !== null) {
+    const n = currentPetal;
+    setTimeout(() => {
+      const p = document.getElementById('lp' + n);
+      p.classList.remove('open');
+      p.classList.add('fallen');
+      petalDone[n-1] = true;
+      spawnParticles(window.innerWidth * 0.5, window.innerHeight * 0.4, 12, 'petal');
+      checkP3Done();
+    }, 200);
+    currentPetal = null;
+  }
+}
+
+function checkP3Done() {
+  if (petalRead.every(Boolean)) {
+    const btn = document.getElementById('p3next');
+    btn.classList.remove('btn-hidden');
+  }
+}
+
+// ============================================================
+// PAGE 4 — DAISY FIELD
+// ============================================================
+function initP4() {
+  if (daisyBuilt) return;
+  daisyBuilt = true;
+  buildDaisies();
+}
+
+function buildDaisies() {
+  const field = document.getElementById('daisy-field');
+  field.innerHTML = '';
+
+  // Responsive sizing
+  const isMobile = window.innerWidth < 480;
+  const positions = [
+    [8,60],[14,20],[22,72],[32,30],[42,65],[50,15],[58,55],[66,25],[74,70],[82,35]
+  ];
+  const mobilePos = [
+    [5,50],[14,15],[24,60],[35,25],[46,55],[55,12],[64,50],[73,22],[82,60],[91,30]
+  ];
+  const pts = isMobile ? mobilePos : positions;
+
+  pts.forEach((pos, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'daisy-wrap';
+    wrap.style.left = pos[0] + '%';
+    wrap.style.bottom = pos[1] + 'px';
+
+    const baseSize = isMobile ? 38 : 55;
+    const size = baseSize + Math.random() * (isMobile ? 22 : 35);
+    const svg = buildDaisySVG(size, i);
+    wrap.appendChild(svg);
+    wrap.addEventListener('click', () => pluckDaisy(wrap, i));
+    // Touch support
+    wrap.addEventListener('touchend', (e) => { e.preventDefault(); pluckDaisy(wrap, i); }, { passive: false });
+    field.appendChild(wrap);
+
+    wrap.style.opacity = '0';
+    wrap.style.transform = 'translateY(40px)';
+    setTimeout(() => {
+      wrap.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
+      wrap.style.opacity = '1';
+      wrap.style.transform = 'translateY(0)';
+    }, 200 + i * 80);
+  });
+}
+
+function buildDaisySVG(size, idx) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','-30 -30 60 90');
+  svg.setAttribute('width', size);
+  svg.setAttribute('height', size * 1.5);
+
+  const stem = document.createElementNS('http://www.w3.org/2000/svg','line');
+  stem.setAttribute('x1','0'); stem.setAttribute('y1','8');
+  stem.setAttribute('x2',idx%2===0?'-4':'3'); stem.setAttribute('y2','58');
+  stem.setAttribute('stroke','#5a9a50'); stem.setAttribute('stroke-width','2.5');
+  stem.setAttribute('stroke-linecap','round');
+  svg.appendChild(stem);
+
+  const leaf = document.createElementNS('http://www.w3.org/2000/svg','path');
+  const lx = idx%2===0?-1:1;
+  leaf.setAttribute('d',`M${lx*2},38 C${lx*12},28 ${lx*22},30 ${lx*18},40 C${lx*14},48 ${lx*4},45 ${lx*2},38Z`);
+  leaf.setAttribute('fill','#6aaa60');
+  svg.appendChild(leaf);
+
+  const petalCount = 12;
+  const colors = ['#fffef8','#fefcf0','#fffdf4'];
+  for (let p = 0; p < petalCount; p++) {
+    const angle = (p / petalCount) * Math.PI * 2;
+    const px = Math.cos(angle) * 14;
+    const py = Math.sin(angle) * 14;
+    const petal = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+    petal.setAttribute('cx', px);
+    petal.setAttribute('cy', py);
+    petal.setAttribute('rx','4');
+    petal.setAttribute('ry','8');
+    petal.setAttribute('fill', colors[p%3]);
+    petal.setAttribute('stroke','#e8e0d0');
+    petal.setAttribute('stroke-width','0.3');
+    petal.setAttribute('transform',`rotate(${angle * 180/Math.PI},${px},${py})`);
+    svg.appendChild(petal);
+  }
+
+  const cg = document.createElementNS('http://www.w3.org/2000/svg','defs');
+  cg.innerHTML = `<radialGradient id="dcg${idx}" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#ffe060"/><stop offset="100%" stop-color="#d4900a"/></radialGradient>`;
+  svg.appendChild(cg);
+  const center = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  center.setAttribute('cx','0'); center.setAttribute('cy','0');
+  center.setAttribute('r','8');
+  center.setAttribute('fill',`url(#dcg${idx})`);
+  center.setAttribute('stroke','#c07808'); center.setAttribute('stroke-width','0.8');
+  svg.appendChild(center);
+
+  return svg;
+}
+
+function pluckDaisy(wrap, idx) {
+  if (wrap.classList.contains('plucked')) return;
+  wrap.classList.add('plucked');
+  daisyPlucked++;
+
+  const rect = wrap.getBoundingClientRect();
+  spawnParticles(rect.left + rect.width/2, rect.top + rect.height/2, 10, 'daisy');
+
+  const token = document.createElement('div');
+  token.className = 'love-token';
+  token.textContent = '🌼 ' + daisyReasons[idx % daisyReasons.length];
+  document.getElementById('lovesContainer').appendChild(token);
+  setTimeout(() => token.classList.add('show'), 50);
+
+  const msgs = ['…she loves me…','…she loves me not…','…she loves me…','…she loves me not…','…she loves me…','…she loves me not…','…she loves me…','…she loves me not…','…she loves me…','…she loves me! ✨'];
+  document.getElementById('p4counter').textContent = msgs[daisyPlucked - 1] || '';
+
+  if (daisyPlucked >= 5) {
+    document.getElementById('p4next').classList.remove('btn-hidden');
+  }
+}
+
+// ============================================================
+// PAGE 5 — FINALE
+// ============================================================
+let p5Init = false;
+function initP5() {
+  if (p5Init) return;
+  p5Init = true;
+
+  const bg = document.getElementById('p5bgf');
+  const emojis = ['🌸','🌷','🌺','🌼','🌸','🌹','🌻','💐'];
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('div');
+    el.className = 'p5-bgf';
+    el.textContent = emojis[i%emojis.length];
+    el.style.left = (i * 5.8) + '%';
+    el.style.animationDuration = (8 + Math.random()*10) + 's';
+    el.style.animationDelay = (Math.random()*10) + 's';
+    bg.appendChild(el);
+  }
+
+  const ring = document.getElementById('flowerRing');
+  const ringEmojis = ['🌸','🌷','🌺','🌼','🌹','💐','🌸','🌷','🌺','🌼','🌹','💐'];
+  const radius = Math.min(window.innerWidth, window.innerHeight) * 0.42;
+  ringEmojis.forEach((em, i) => {
+    const el = document.createElement('div');
+    el.className = 'ring-flower';
+    const angle = (i / ringEmojis.length) * 360;
+    el.style.setProperty('--ra', angle + 'deg');
+    el.style.setProperty('--rd', radius + 'px');
+    el.style.top = '50%';
+    el.style.left = '50%';
+    el.style.marginTop = '-1rem';
+    el.style.marginLeft = '-1rem';
+    el.style.animationDuration = '1.2s';
+    el.style.animationDelay = (i * 0.1) + 's';
+    el.style.animationFillMode = 'both';
+    el.textContent = em;
+    ring.appendChild(el);
+  });
+
+  const spans = document.querySelectorAll('#p5letter span');
+  spans.forEach((s, i) => {
+    setTimeout(() => s.classList.add('vis'), 800 + i * 220);
+  });
+
+  startFallingPetals();
+}
+
+function startFallingPetals() {
+  const count = window.innerWidth < 480 ? 20 : 40;
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: -30,
+        vx: (Math.random()-0.5)*1.8,
+        vy: 0.8 + Math.random()*1.8,
+        rot: Math.random()*Math.PI*2,
+        vrot: (Math.random()-0.5)*0.05,
+        alpha: 0.75,
+        scale: 0.7 + Math.random()*0.9,
+        hue: 350 + Math.random()*20,
+        life: 350 + Math.random()*200,
+        type: 'petal'
+      });
+    }, i * 300);
+  }
+  if (!raf) animLoop();
+}
+
+// ============================================================
+// PARTICLES
+// ============================================================
+function spawnParticles(x, y, count, type) {
+  for (let i = 0; i < count; i++) {
+    const angle = (i/count)*Math.PI*2;
+    const speed = 1.5 + Math.random()*3;
+    particles.push({
+      x, y,
+      vx: Math.cos(angle)*speed,
+      vy: Math.sin(angle)*speed - 1.5,
+      rot: Math.random()*Math.PI*2,
+      vrot: (Math.random()-0.5)*0.15,
+      alpha: 0.9,
+      scale: type==='daisy' ? 0.5 + Math.random()*0.5 : 0.6 + Math.random()*0.7,
+      hue: type==='daisy' ? 45 + Math.random()*20 : 350 + Math.random()*20,
+      life: 80 + Math.random()*60,
+      type
+    });
+  }
+  if (!raf) animLoop();
+}
+
+function animLoop() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles = particles.filter(p=>p.life>0);
+  if (!particles.length) { raf = null; return; }
+
+  particles.forEach(p => {
+    p.x += p.vx + Math.sin(p.life*0.04)*0.4;
+    p.y += p.vy;
+    p.vy += 0.04;
+    p.rot += p.vrot;
+    p.life--;
+    p.alpha = Math.min(0.85, p.life/50);
+
+    ctx.save();
+    ctx.globalAlpha = p.alpha;
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.scale(p.scale, p.scale);
+
+    if (p.type === 'daisy') {
+      ctx.beginPath();
+      ctx.ellipse(0, -10, 4, 9, 0, 0, Math.PI*2);
+      ctx.fillStyle = '#fefef0';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(0, 0, 5, 0, Math.PI*2);
+      ctx.fillStyle = `hsl(${p.hue},90%,65%)`;
+      ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(0,-16);
+      ctx.bezierCurveTo(10,-12,12,0,0,13);
+      ctx.bezierCurveTo(-12,0,-10,-12,0,-16);
+      ctx.fillStyle = `hsl(${p.hue},70%,${78+Math.random()*12}%)`;
+      ctx.fill();
+      ctx.strokeStyle = `hsla(${p.hue},50%,60%,0.3)`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  });
+
+  raf = requestAnimationFrame(animLoop);
+}
+
+// ============================================================
+// RESET
+// ============================================================
+function resetAll() {
+  p2Animated = false;
+  p3Bloomed = false;
+  petalRead = [false,false,false,false,false,false];
+  petalDone = [false,false,false,false,false,false];
+  daisyPlucked = 0;
+  daisyBuilt = false;
+  p5Init = false;
+
+  for(let i=1;i<=6;i++){
+    const p = document.getElementById('lp'+i);
+    if(p){ p.classList.remove('open','fallen'); p.classList.add('closed'); }
+  }
+  const ls = document.getElementById('ls');
+  if(ls){ ls.style.transition='none'; ls.style.strokeDashoffset='100'; }
+  const ll1 = document.getElementById('ll1');
+  const ll2 = document.getElementById('ll2');
+  if(ll1){ ll1.style.transition='none'; ll1.style.transform='scale(0)'; }
+  if(ll2){ ll2.style.transition='none'; ll2.style.transform='scale(0)'; }
+  const lc = document.getElementById('lcenter');
+  if(lc) lc.style.opacity='0';
+
+  ['ts1','ts2','ts3'].forEach(id=>{
+    const e=document.getElementById(id);
+    if(e){e.style.transition='none';e.style.strokeDashoffset=e.id==='ts2'?'210':'200';}
+  });
+  ['tl1','tl2','tl3'].forEach(id=>{
+    const e=document.getElementById(id);
+    if(e){e.style.opacity='0';}
+  });
+  ['tb1','tb2','tb3'].forEach(id=>{
+    const e=document.getElementById(id);
+    if(e){e.style.opacity='0';}
+  });
+  ['sl1','sl2','sl3'].forEach(id=>{
+    const e=document.getElementById(id);
+    if(e){e.classList.remove('vis');}
+  });
+
+  document.getElementById('lovesContainer').innerHTML='';
+  document.getElementById('p4counter').textContent='';
+  document.getElementById('p4next').classList.add('btn-hidden');
+  document.getElementById('p3next').classList.add('btn-hidden');
+
+  document.getElementById('p5bgf').innerHTML='';
+  document.getElementById('flowerRing').innerHTML='';
+  document.querySelectorAll('#p5letter span').forEach(s=>s.classList.remove('vis'));
+
+  particles = [];
+}
+</script>
+</body>
+</html>
